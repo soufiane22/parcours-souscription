@@ -93,7 +93,6 @@ export default {
   margin-bottom: 2rem;
 }
 button{
-
   color: white;
   padding: 0.6rem 1.8rem;
   border-radius: 25px;
@@ -101,6 +100,7 @@ button{
   font-weight: 700;
   margin-top: 0.8rem;
   min-width: 8rem;
+  font-family: "glimer-regular", sans-serif;
 }
 .nextBtn{
   background-color: #6D4AE7;

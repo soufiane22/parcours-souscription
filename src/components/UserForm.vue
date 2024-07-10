@@ -1,12 +1,13 @@
 <template>
   <div class="card_header">
     <img src="../assets/Images/Titre.png" alt="logo" class="img-fluid" />
+    <img src="../assets/Images/Etape1.png" alt="step1" class="img-fluid mt-4 mb-3">
   </div>
   <div class="card_body">
     <div class="instructions">
-      <p>
-        Pour souscrire à notre Assistance Auto, nous vous demandons de remplir
-        certains champs obligatoires. Ces informations sont essentielles pour
+      <p class="mb-3 mt-2">
+        Pour souscrire à notre <span class="colored_text">Assistance Auto,</span> nous vous demandons de remplir
+        certains <b>champs obligatoires.</b> Ces informations sont essentielles pour
         personnaliser nos services en fonction de vos besoins spécifiques.
       </p>
       <p class="confidentiality">
@@ -156,6 +157,23 @@ export default {
 .card_header {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.instructions{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+p{
+    width: 60%;
+    font-family: "glimer-regular", sans-serif;
+}
+.confidentiality{
+    font-size: 10px;
+    color: #707070;
+    font-family: "glimer-light", sans-serif;
 }
 
 form {

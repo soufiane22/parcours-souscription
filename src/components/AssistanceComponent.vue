@@ -41,10 +41,7 @@ p{
   font-family: 'glimer-regular', sans-serif;
   margin-top: 1rem;
 }
-.colored_text{
-  color:#6D4AE7 ;
-  font-weight: 700;
-}
+
 
 @media screen and (max-width: 991px) {
   :root{

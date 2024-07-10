@@ -37,3 +37,8 @@
   input:focus {
     outline: 1px solid #6d4ae7;
   }
+
+  .colored_text{
+    color:#6D4AE7 ;
+    font-weight: 700;
+  }

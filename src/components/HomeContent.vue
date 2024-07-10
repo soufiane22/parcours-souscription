@@ -12,7 +12,7 @@
       src="../assets/Video/camion_1.mp4"
       autoplay="true"
       loop
-      rep
+      muted
       width="80%"
       height="70%"
       class="mb-3"
