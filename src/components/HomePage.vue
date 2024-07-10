@@ -2,14 +2,48 @@
   <div class="container">
     <div class="container_content">
       <div class="card">
-        <component :is="currentComponent"
-        @next="nextComponent" 
-        @previous="previousComponent" 
-        @userFormSubmitted="handleUserForm" 
-        @carFormSubmitted="handleCarForm">
-      </component>
+        <component
+          :is="currentComponent"
+          @next="nextComponent"
+          @previous="previousComponent"
+          @userFormSubmitted="handleUserForm"
+          @carFormSubmitted="handleCarForm"
+        >
+        </component>
 
+        <div
+          class="alert alert-success alert-dismissible"
+          role="alert"
+          v-if="submissionSucceed"
+        >
+          Inscription submitted successfully!
+          <span
+            type="button"
+            class="close ms-4"
+            data-dismiss="alert"
+            aria-label="Close"
+             @click="dismissAlert"
+          >
+            <span aria-hidden="true">&times;</span>
+          </span>
+        </div>
 
+        <div
+          class="alert alert-danger alert-dismissible"
+          role="alert"
+          v-if="submissionFailed"
+        >
+          Something went wrong, please try again later.
+          <span
+            type="button"
+            class="close ms-4"
+            data-dismiss="alert"
+            aria-label="Close"
+            @click="dismissAlert"
+          >
+            <span aria-hidden="true">&times;</span>
+          </span>
+        </div>
       </div>
       <div class="description">
         <p>
@@ -32,7 +66,7 @@ import AssistanceComponent from "./AssistanceComponent.vue";
 import UserForm from "./UserForm.vue";
 import carForm from "./carForm.vue";
 import "../assets/style.css";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "HomePage",
@@ -40,7 +74,7 @@ export default {
     HomeContent,
     AssistanceComponent,
     UserForm,
-    carForm
+    carForm,
   },
   props: {
     msg: String,
@@ -48,44 +82,55 @@ export default {
   data() {
     return {
       currentComponentIndex: 0,
-      pagesArray: ["HomeContent","AssistanceComponent","UserForm","carForm"],
+      pagesArray: ["HomeContent", "AssistanceComponent", "UserForm", "carForm"],
       userData: {},
-      carData:{}
+      carData: {},
+      submissionSucceed: null,
+      submissionFailed: null,
     };
   },
   computed: {
     currentComponent() {
       return this.pagesArray[this.currentComponentIndex];
-    }
+    },
   },
   methods: {
     nextComponent() {
-      this.currentComponentIndex = (this.currentComponentIndex + 1) % this.pagesArray.length;
+      this.currentComponentIndex =
+        (this.currentComponentIndex + 1) % this.pagesArray.length;
     },
     previousComponent() {
-      this.currentComponentIndex = this.currentComponentIndex - 1;  
+      this.currentComponentIndex = this.currentComponentIndex - 1;
     },
     handleUserForm(data) {
       this.userData = data;
       this.nextComponent();
     },
-    async handleCarForm(data){
+    async handleCarForm(data) {
       this.carData = data;
       const inscriptionData = {
         ...this.userData,
-        ...this.carData
+        ...this.carData,
       };
-      console.log({inscriptionData:inscriptionData});
+      console.log({ inscriptionData: inscriptionData });
       try {
-        const response = await axios.post('http://localhost:3000/api/inscriptions', inscriptionData);
-        console.log('Inscription submitted successfully:', response);
+        const response = await axios.post(
+          "http://localhost:3000/api/inscriptions",
+          inscriptionData
+        );
+        console.log("Inscription submitted successfully:", response);
+        this.submissionSucceed = true;
       } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error("Error submitting form:", error);
+        this.submissionFailed = true;
       }
+    },
+    dismissAlert(){
+      this.submissionSucceed = false;
+      this.submissionFailed = false;
     }
-  }
+  },
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -132,7 +177,7 @@ export default {
 }
 
 @media screen and (max-width: 991px) {
-  :root{
+  :root {
     font-size: 12px;
   }
 }
