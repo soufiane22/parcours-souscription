@@ -17,6 +17,7 @@
       height="70%"
       class="mb-3"
     ></video>
+    <button class="nextBtn"  @click="nextComponent">Suivant</button>
 
   </div>
 </template>
@@ -27,6 +28,12 @@ export default {
   props: {
     // msg: String
   },
+  methods: {
+    nextComponent() {
+      this.$emit('next');
+    },
+   }
+  
 };
 // const description = ``
 </script>

@@ -27,24 +27,32 @@
               type="text"
               onfocus="(this.type='date')"
               onblur="(this.type='text')"
+              v-model="carData.circulationDate" 
             />
-            <input type="text" name="model" id="model" placeholder="Modèle :" />
+            <input type="text" name="model" id="model" placeholder="Modèle :"
+            v-model="carData.model"  />
             <input
               type="text"
               name="marque"
               id="model"
               placeholder="Marque :"
+              v-model="carData.marque" 
             />
             <input
               type="text"
               name="registration"
               id="registration"
               placeholder="Immatriculation :"
+              v-model="carData.registration" 
             />
           </div>
         </div>
       </div>
     </div>
+    <div class="d-flex mt-3 justify-content-center align-items-center  ">
+          <button class="previousBtn me-3 h-100"  @click="previousComponent">Précédent</button>
+          <button class="nextBtn"  @click="submitCarForm">Envoyer</button>
+      </div>
   </div>
 </template>
 
@@ -54,6 +62,25 @@ export default {
   props: {
     msg: String,
   },
+  data() {
+    return {
+      carData: {
+        circulationDate: '',
+        model: '',
+        marque:'',
+        registration:'',
+      }
+    };
+  },
+  methods: {
+    submitCarForm() {
+      this.$emit('carFormSubmitted', this.carData);
+    },
+    previousComponent(){
+      this.$emit('previous');
+    }
+  }
+
 };
 </script>
 

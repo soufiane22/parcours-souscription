@@ -2,11 +2,13 @@
   <div class="container">
     <div class="container_content">
       <div class="card">
-        <component :is="currentComponent"></component>
-        <div class="d-flex mt-3">
-          <button class="previousBtn me-3" v-if="currentComponentIndex > 0"  @click="previousComponent">Précédent</button>
-          <button class="nextBtn"  @click="nextComponent">Suivant</button>
-        </div>
+        <component :is="currentComponent"
+        @next="nextComponent" 
+        @previous="previousComponent" 
+        @userFormSubmitted="handleUserForm" 
+        @carFormSubmitted="handleCarForm">
+      </component>
+
 
       </div>
       <div class="description">
@@ -30,6 +32,8 @@ import AssistanceComponent from "./AssistanceComponent.vue";
 import UserForm from "./UserForm.vue";
 import carForm from "./carForm.vue";
 import "../assets/style.css";
+import axios from 'axios';
+
 export default {
   name: "HomePage",
   components: {
@@ -44,7 +48,9 @@ export default {
   data() {
     return {
       currentComponentIndex: 0,
-      pagesArray: ["HomeContent","AssistanceComponent","UserForm","carForm"]
+      pagesArray: ["HomeContent","AssistanceComponent","UserForm","carForm"],
+      userData: {},
+      carData:{}
     };
   },
   computed: {
@@ -58,6 +64,24 @@ export default {
     },
     previousComponent() {
       this.currentComponentIndex = this.currentComponentIndex - 1;  
+    },
+    handleUserForm(data) {
+      this.userData = data;
+      this.nextComponent();
+    },
+    async handleCarForm(data){
+      this.carData = data;
+      const inscriptionData = {
+        ...this.userData,
+        ...this.carData
+      };
+      console.log({inscriptionData:inscriptionData});
+      try {
+        const response = await axios.post('http://localhost:3000/api/inscriptions', inscriptionData);
+        console.log('Inscription submitted successfully:', response);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
     }
   }
 };
@@ -92,22 +116,7 @@ export default {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
 }
-button{
-  color: white;
-  padding: 0.6rem 1.8rem;
-  border-radius: 25px;
-  border:none;
-  font-weight: 700;
-  margin-top: 0.8rem;
-  min-width: 8rem;
-  font-family: "glimer-regular", sans-serif;
-}
-.nextBtn{
-  background-color: #6D4AE7;
-}
-.previousBtn{
-  background-color: #B7B7B7;
-}
+
 .description {
   display: flex;
   justify-content: center;

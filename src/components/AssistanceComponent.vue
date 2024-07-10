@@ -1,7 +1,6 @@
 <template>
 
     <div class="card_content">
-
       <img src="../assets/Images/Titre.png" alt="logo" class="img-fluid"/>
        <p>
         Chez <span class="colored_text">Tutassur</span>,
@@ -15,6 +14,11 @@
        </p>
        <img src="../assets/Images/Presentation_etape.png" alt="stapes" class="img-fluid">
 
+       <div class="d-flex mt-3">
+          <button class="previousBtn me-3"  @click="previousComponent">Précédent</button>
+          <button class="nextBtn"  @click="nextComponent">Suivant</button>
+        </div>
+
     </div>
 </template>
 
@@ -23,7 +27,15 @@ export default {
   name: 'AssistanceComponent',
   props: {
     msg: String
-  }
+  },
+  methods: {
+    nextComponent() {
+      this.$emit('next');
+    },
+    previousComponent(){
+      this.$emit('previous');
+    }
+   }
 }
 </script>
 
