@@ -6,6 +6,7 @@ const sqlite3 = require("sqlite3").verbose();
 const portServer = process.env.PORT || 4000; // get the number of the port from .env file
 const app = express();
 const inscriptionRoutes = require("./routes/inscription.route.js");
+const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -20,6 +21,9 @@ const db = new sqlite3.Database(process.env.DB_URL, (err) => {
   }
   console.log("Connecting to my SQLite database");
 });
+
+// Use cors middleware to handel access to the server
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 // Create a test table
 db.serialize(() => {

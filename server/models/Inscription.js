@@ -19,11 +19,12 @@ class Inscription {
     }
   
     static save(inscription, db, callback) {
+      // sql insertion query
       const sql = `INSERT INTO inscriptions      (firstName, lastName,birthdayDate,birthdayPlace,email,phoneNumber,
         postalCode,city,profession,familyStatus,circulationDate,model,marque,registration) 
       VALUES (?, ? ,? , ?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,?)`;
 
-      console.log( "inscription ",inscription);
+      // Get the inscription fields values
       let values = [inscription.firstName, inscription.lastName, inscription.birthdayDate,
         inscription.birthdayPlace, inscription.email, inscription.phoneNumber,
         inscription.postalCode, inscription.city, inscription.profession,
@@ -31,13 +32,13 @@ class Inscription {
         inscription.marque, inscription.registration
       ];
 
-      console.log( "values ",values);
+      // Run the sql query 
       db.run(sql,values, function (err) {
         if (err) {
           console.log( "error ",err);
           return callback(err);
         }
-        console.log( { id: this.lastID, ...inscription });
+        // return the created inscription
         callback(null, { id: this.lastID, ...inscription });
       });
     }
