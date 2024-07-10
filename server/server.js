@@ -5,7 +5,7 @@ const asyncHandler = require("express-async-handler"); // middleware for handlin
 const sqlite3 = require('sqlite3').verbose();
 const portServer = process.env.PORT || 4000;  // get the number of the port from .env file
 const app = express();
-// const appRoutes = require("./routes/index.routes.js");
+const inscriptionRoutes = require("./routes/inscription.route.js");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -34,8 +34,8 @@ app.use((req, res, next) => {
     next();
   });
 
-  // Import souscription route
-// app.use('/api/users', userRoutes);
+  // Import inscription route
+app.use('/api/inscriptions', inscriptionRoutes);
 
 const server = http.createServer(app);  // create a server 
 const startServer = asyncHandler(async () => {   // start the server
