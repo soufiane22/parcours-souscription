@@ -17,7 +17,7 @@
       </p>
     </div>
 
-    <form class="form">
+    <form class="form" @submit.prevent="submitUserForm">
       <div class="row">
         <div class="col-md-4 mb-3">
           <div class="form_card">
@@ -30,14 +30,16 @@
               <input
                 type="text"
                 name="firstName"
-                id="firstName"
+                id="firstName" 
+                v-model="userData.firstName" 
                 placeholder="Nom :"
               />
               <input
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder="Prénom :"
+                placeholder="Prénom :" 
+                v-model="userData.lastName" 
               />
             </div>
           </div>
@@ -56,13 +58,15 @@
                 placeholder="Date de naissance :"
                 type="text"
                 onfocus="(this.type='date')"
-                onblur="(this.type='text')"
+                onblur="(this.type='text')" 
+                v-model="userData.birthdayDate" 
               />
               <input
                 type="text"
                 name="birthdayPlace"
                 id="birthdayPlace"
                 placeholder="Lieu de naissance :"
+                v-model="userData.birthdayPlace" 
               />
             </div>
           </div>
@@ -79,13 +83,15 @@
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Adress e-mail :"
+                placeholder="Adress e-mail :" 
+                v-model="userData.email" 
               />
               <input
                 type="text"
                 name="phoneNumber"
                 id="phoneNumber"
-                placeholder="Telephone :"
+                placeholder="Telephone :" 
+                v-model="userData.phoneNumber" 
               />
             </div>
           </div>
@@ -104,9 +110,11 @@
                 type="text"
                 name="postalCode"
                 id="postalCode"
-                placeholder="Code Postal :"
+                placeholder="Code Postal :" 
+                v-model="userData.postalCode" 
               />
-              <input type="text" name="city" id="city" placeholder="Ville :" />
+              <input type="text" name="city" id="city" placeholder="Ville :" 
+                v-model="userData.city" />
             </div>
           </div>
         </div>
@@ -122,17 +130,23 @@
                 type="text"
                 name="profession"
                 id="profession"
-                placeholder="Profession :"
+                placeholder="Profession :" 
+                v-model="userData.profession" 
               />
               <input
                 type="text"
                 name="familyStatus"
                 id="familyStatus"
-                placeholder="Situation Familiale :"
+                placeholder="Situation Familiale :" 
+                v-model="userData.familyStatus" 
               />
             </div>
           </div>
         </div>
+      </div>
+      <div class="d-flex mt-3 justify-content-center align-items-center  ">
+          <button class="previousBtn me-3 h-100"  @click="previousComponent">Précédent</button>
+          <button class="nextBtn"  @click="submitUserForm">Suivant</button>
       </div>
     </form>
   </div>
@@ -144,6 +158,30 @@ export default {
   props: {
     msg: String,
   },
+  data() {
+    return {
+      userData: {
+        firstName: '',
+        lastName: '',
+        birthdayDate:'',
+        birthdayPlace:'',
+        email:'',
+        phoneNumber:'',
+        postalCode:'',
+        city:'',
+        profession:'',
+        familyStatus:''
+      }
+    };
+  },
+  methods: {
+    submitUserForm() {
+      this.$emit('userFormSubmitted', this.userData);
+    },
+    previousComponent(){
+      this.$emit('previous');
+    }
+  }
 };
 </script>
 
