@@ -9,6 +9,7 @@ const inscriptionRoutes = require("./routes/inscription.route.js");
 const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+const errorHandler = require('./middleware/errorHandler');
 
 // Connect to  my SQLite database
 const db = new sqlite3.Database(process.env.DB_URL, (err) => {
@@ -24,6 +25,9 @@ const db = new sqlite3.Database(process.env.DB_URL, (err) => {
 
 // Use cors middleware to handel access to the server
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+
+// User the error middleware handler
+app.use(errorHandler);
 
 // Create a test table
 db.serialize(() => {
