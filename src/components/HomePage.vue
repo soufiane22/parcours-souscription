@@ -49,13 +49,7 @@
       </div>
       <div class="description">
         <p>
-          TUTASSUR GRENOBLE SAS au capital de 3000€ - RCS GRENOBLE 919 676 817 –
-          SIRET 919 676 817 00019 – APE 6622Z Siège social : 4 Boulevard
-          Gambetta – 38000 Grenoble – Tél. + 33 (0)4.65.84.25.34 - TVA
-          Intracommunautaire FR02919676817 Cabinet de courtage en assurance
-          immatriculé à l’ORIAS (www.orias.fr) sous le numéro 22005579 Sous le
-          contrôle de l’Autorité de Contrôle Prudentiel et de Résolution (ACPR)
-          – 4 place de Budapest 75009 PARIS.
+          {{description}}
         </p>
       </div>
     </div>
@@ -105,6 +99,14 @@ export default {
       },
       submissionSucceed: null,
       submissionFailed: null,
+      description : `
+               TUTASSUR GRENOBLE SAS au capital de 3000€ - RCS GRENOBLE 919 676 817 –
+          SIRET 919 676 817 00019 – APE 6622Z Siège social : 4 Boulevard
+          Gambetta – 38000 Grenoble – Tél. + 33 (0)4.65.84.25.34 - TVA
+          Intracommunautaire FR02919676817 Cabinet de courtage en assurance
+          immatriculé à l’ORIAS (www.orias.fr) sous le numéro 22005579 Sous le
+          contrôle de l’Autorité de Contrôle Prudentiel et de Résolution (ACPR)
+          – 4 place de Budapest 75009 PARIS.`
     };
   },
   computed: {

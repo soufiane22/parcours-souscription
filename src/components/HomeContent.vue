@@ -1,13 +1,7 @@
 <template>
   <div class="card_content">
-    <p>
-      Bienvenue. <br>
-      Notre <b>assistance auto</b> est conçu pour vous offrir une
-      tranquillité d’esprit totale lors de vos déplacements. Nous sommes
-      disponibles
-      <b>24 heures sur 24, 7 jours sur 7, où que vous soyez,</b> mettant ainsi
-      votre sécurité au cœur de notre engagement.
-    </p>
+    <span v-html="sanitizedHtmlContent">
+    </span>
     <video
       src="../assets/Video/camion_1.mp4"
       autoplay="true"
@@ -23,15 +17,34 @@
 </template>
 
 <script>
+import DOMPurify from 'dompurify';
 export default {
+  
   name: "HomeContent",
   props: {
     // msg: String
+  },
+  data() {
+    return {
+      text : `
+          Bienvenue. <br>
+      Notre <b>assistance auto</b> est conçu pour vous offrir une
+      tranquillité d’esprit totale lors de vos déplacements. Nous sommes
+      disponibles
+      <b>24 heures sur 24, 7 jours sur 7, où que vous soyez,</b> mettant ainsi
+      votre sécurité au cœur de notre engagement.`
+    }
+
   },
   methods: {
     nextComponent() {
       this.$emit('next');
     },
+   },
+   computed : {
+    sanitizedHtmlContent() {
+      return DOMPurify.sanitize(this.text);
+    }
    }
   
 };
