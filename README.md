@@ -19,7 +19,7 @@ npm install
 npm run serve
 ```
 
-### Compiles the node js server (the server side)
+### Run the node js server (the server side)
 ```
 npm start
 ```
