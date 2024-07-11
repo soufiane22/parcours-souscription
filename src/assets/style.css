@@ -60,3 +60,11 @@
   .previousBtn{
     background-color: #B7B7B7;
   }
+
+  .invalid{
+    outline: 1px solid red !important;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+  }

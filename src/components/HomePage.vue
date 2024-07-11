@@ -4,6 +4,7 @@
       <div class="card">
         <component
           :is="currentComponent"
+          :formData="formData" 
           @next="nextComponent"
           @previous="previousComponent"
           @userFormSubmitted="handleUserForm"
@@ -98,9 +99,16 @@ export default {
     nextComponent() {
       this.currentComponentIndex =
         (this.currentComponentIndex + 1) % this.pagesArray.length;
+        if(this.currentComponentIndex == 3 ){
+          this.formData = this.carData;
+        }
     },
-    previousComponent() {
+    previousComponent(carData) {
       this.currentComponentIndex = this.currentComponentIndex - 1;
+      if(this.currentComponentIndex == 2 ){
+        this.formData = this.userData;
+        this.carData = carData
+      }
     },
     handleUserForm(data) {
       this.userData = data;
@@ -120,6 +128,9 @@ export default {
         );
         console.log("Inscription submitted successfully:", response);
         this.submissionSucceed = true;
+        this.formData = {};
+        this.userData = {};
+        this.carData ={};
       } catch (error) {
         console.error("Error submitting form:", error);
         this.submissionFailed = true;
