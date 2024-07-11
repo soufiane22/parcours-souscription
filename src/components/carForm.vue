@@ -27,32 +27,55 @@
               type="text"
               onfocus="(this.type='date')"
               onblur="(this.type='text')"
-              v-model="carData.circulationDate" 
+              v-model="carData.circulationDate"
+              :class="{ invalid: errors.circulationDate }"
             />
-            <input type="text" name="model" id="model" placeholder="Modèle :"
-            v-model="carData.model"  />
+            <span v-if="errors.circulationDate" class="error"
+              >{{ errors.circulationDate }}
+            </span>
+            <input
+              type="text"
+              name="model"
+              id="model"
+              placeholder="Modèle :"
+              v-model="carData.model"
+              :class="{ invalid: errors.model }"
+            />
+            <span v-if="errors.model" class="error"
+              >{{ errors.model }}
+            </span>
             <input
               type="text"
               name="marque"
               id="model"
               placeholder="Marque :"
-              v-model="carData.marque" 
+              v-model="carData.marque"
+              :class="{ invalid: errors.marque }"
             />
+            <span v-if="errors.marque" class="error"
+              >{{ errors.marque }}
+            </span>
             <input
               type="text"
               name="registration"
               id="registration"
               placeholder="Immatriculation :"
-              v-model="carData.registration" 
+              v-model="carData.registration"
+             :class="{ invalid: errors.registration }"
             />
+            <span v-if="errors.registration" class="error"
+              >{{ errors.registration }}
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div class="d-flex mt-3 justify-content-center align-items-center  ">
-          <button class="previousBtn me-3 h-100"  @click="previousComponent">Précédent</button>
-          <button class="nextBtn"  @click="submitCarForm">Envoyer</button>
-      </div>
+    <div class="d-flex mt-3 justify-content-center align-items-center">
+      <button class="previousBtn me-3 h-100" @click="previousComponent">
+        Précédent
+      </button>
+      <button class="nextBtn" @click="submitCarForm">Envoyer</button>
+    </div>
   </div>
 </template>
 
@@ -60,27 +83,77 @@
 export default {
   name: "carForm",
   props: {
-    msg: String,
+    formData:  {
+        circulationDate: "",
+        model: "",
+        marque: "",
+        registration: "",
+      },
   },
   data() {
     return {
-      carData: {
-        circulationDate: '',
-        model: '',
-        marque:'',
-        registration:'',
-      }
+      carData:{...this.formData},
+      errors: {},
+      labels: [
+        "Date de mise en circulation",
+        "Modèle",
+        "Marque",
+        "Immatriculation",
+      ],
     };
   },
   methods: {
-    submitCarForm() {
-      this.$emit('carFormSubmitted', this.carData);
+    validateField(key, value) {
+      if (!value) {
+        this.errors[key] = `${this.labels[this.getIndexByKey(key)]} est requis`;
+      } else {
+        delete this.errors[key];
+      }
     },
-    previousComponent(){
-      this.$emit('previous');
-    }
-  }
+    getIndexByKey(key) {
+      const keys = Object.keys(this.carData);
+      return keys.indexOf(key);
+    },
+    submitCarForm() {
+      this.errors = {};
+      Object.entries(this.carData).forEach(([key, value], index) => {
+        if (!value) {
+          this.errors[key] = `${this.labels[index]} est requis`;
+        }
+      });
 
+      if (Object.keys(this.errors).length === 0) {
+        this.$emit("carFormSubmitted", this.carData);
+      }
+    },
+    previousComponent() {
+      this.$emit("previous",this.carData);
+    },
+    resetForm(){
+      this.carData = {
+        circulationDate: "",
+        model: "",
+        marque: "",
+        registration: "",
+    
+      };
+      this.errors = {}
+    }
+  },
+  watch: {
+    "carData.circulationDate"(newValue) {
+      this.validateField("circulationDate", newValue);
+    },
+    "carData.model"(newValue) {
+      this.validateField("model", newValue);
+    },
+    "carData.marque"(newValue) {
+      this.validateField("marque", newValue);
+    },
+    "carData.registration"(newValue) {
+      this.validateField("registration", newValue);
+    },
+  },
 };
 </script>
 

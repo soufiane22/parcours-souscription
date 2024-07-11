@@ -17,7 +17,7 @@
       height="70%"
       class="mb-3"
     ></video>
-    <button class="nextBtn"  @click="nextComponent">Suivant</button>
+      <button class="nextBtn"  @click="nextComponent">Suivant</button>
 
   </div>
 </template>
