@@ -129,6 +129,16 @@ export default {
     previousComponent() {
       this.$emit("previous",this.carData);
     },
+    resetForm(){
+      this.carData = {
+        circulationDate: "",
+        model: "",
+        marque: "",
+        registration: "",
+    
+      };
+      this.errors = {}
+    }
   },
   watch: {
     "carData.circulationDate"(newValue) {

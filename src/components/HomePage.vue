@@ -4,7 +4,8 @@
       <div class="card">
         <component
           :is="currentComponent"
-          :formData="formData" 
+          :formData="formData"
+          :ref="currentComponent" 
           @next="nextComponent"
           @previous="previousComponent"
           @userFormSubmitted="handleUserForm"
@@ -150,6 +151,7 @@ export default {
         this.formData = {};
         this.userData = {};
         this.carData ={};
+        this.$refs.carForm.resetForm(); // reset the car from in the child component
       } catch (error) {
         console.error("Error submitting form:", error);
         this.submissionFailed = true;

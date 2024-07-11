@@ -311,7 +311,7 @@ export default {
     },
     "userData.familyStatus"(newValue) {
       this.validateField("familyStatus", newValue);
-    },
+    }
   },
 };
 </script>
