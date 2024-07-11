@@ -260,6 +260,7 @@ export default {
     },
 
     submitUserForm() {
+      console.log("formData ",this.formData);
       console.log("userData ",this.userData);
       this.errors = {
       };

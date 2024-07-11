@@ -84,8 +84,24 @@ export default {
     return {
       currentComponentIndex: 0,
       pagesArray: ["HomeContent", "AssistanceComponent", "UserForm", "carForm"],
-      userData: {},
-      carData: {},
+      userData: {
+        firstName: "",
+        lastName: "",
+        birthdayDate: "",
+        birthdayPlace: "",
+        email: "",
+        phoneNumber: "",
+        postalCode: "",
+        city: "",
+        profession: "",
+        familyStatus: "",
+      },
+      carData: {
+        circulationDate: "",
+        model: "",
+        marque: "",
+        registration: "",
+      },
       submissionSucceed: null,
       submissionFailed: null,
     };
@@ -101,6 +117,9 @@ export default {
         (this.currentComponentIndex + 1) % this.pagesArray.length;
         if(this.currentComponentIndex == 3 ){
           this.formData = this.carData;
+        }
+        if(this.currentComponentIndex == 2 ){
+          this.formData = this.userData;
         }
     },
     previousComponent(carData) {
